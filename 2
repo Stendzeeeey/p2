@@ -1,0 +1,34 @@
+Юлий Цезарь использовал свой способ шифрования текста. Каждая буква 
+заменялась на следующую по алфавиту через K позиций по кругу. Если взять 
+русский алфавит и k = 3, то в слове, которое мы хотим зашифровать, буква А 
+станет буквой Г, Б станет Д и так далее.
+В текстовом файле хранится сообщение (первая строка), а также значение 
+сдвига (вторая строка). Напишите программу, которая зашифрует это сообщение 
+при помощи шифра Цезаря и выведет результат в другой текстовый файл. Сдвиг 
+может быть только положительным значением. Букву Ё не учитывать. 
+
+input_file = open("input.txt", "r", encoding='utf-8')
+output_file = open("output.txt", "w", encoding='utf-8')
+
+message = input_file.readline().rstrip()
+k = 5
+
+alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
+encrypted_message = ""
+
+for char in message:
+    if char.lower() in alphabet:
+        old_index = alphabet.index(char.lower())
+        new_index = (old_index + k) % len(alphabet)
+        if char.islower():
+            encrypted_char = alphabet[new_index]
+        else:
+            encrypted_char = alphabet[new_index].upper()
+    else:
+        encrypted_char = char
+    encrypted_message += encrypted_char
+
+output_file.write(encrypted_message)
+
+input_file.close()
+output_file.close()
