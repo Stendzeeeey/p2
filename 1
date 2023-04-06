@@ -1,0 +1,25 @@
+Пользователь вводит строку. Напишите программу, которая определяет, 
+является ли заданная строка правильным IP-адресом. Обеспечьте контроль ввода, 
+где предусматривается ввод целых чисел от 0 до 255, а также точки между ними
+while True:
+    ip = input("Введите IP: ")
+    octets = ip.split(".")
+    valid = True
+
+    if len(octets) != 4:
+        print("Адрес - это четыре числа, разделенные точками")
+        valid = False
+
+    for octet in octets:
+        if not octet.isdigit():
+            print(octet + "- не целое число")
+            valid = False
+            break
+        elif int(octet) < 0 or int(octet) > 255:
+            print(octet + " превышает 255")
+            valid = False
+            break
+
+    if valid:
+        print("IP-адрес корректен")
+        break
